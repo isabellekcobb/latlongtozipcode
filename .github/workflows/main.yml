@@ -14,12 +14,12 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Cache IEEE 37 model
-      id: ieee-37-model
+    - name: Cache IEEE 13 model
+      id: ieee-13-model
       uses: actions/cache@v3
       with:
-        path: 37.glm
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('37.glm') }}
+        path: 13.glm
+        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('13.glm') }}
         restore-keys: |
           ${{ runner.os }}-build-${{ env.cache-name }}-
           ${{ runner.os }}-build-
@@ -31,7 +31,7 @@ jobs:
     - name: Save results
       uses: actions/upload-artifact@v3
       with:
-        name: IEEE 37 voltage profile
-        path: IEEE-37-voltage-profile.png
+        name: IEEE 13 voltage profile
+        path: IEEE-13-voltage-profile.png
         
       
