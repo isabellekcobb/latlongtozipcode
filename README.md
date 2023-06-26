@@ -1,6 +1,6 @@
 [![Simulation](../../actions/workflows/main.yml/badge.svg)](../../actions/workflows/main.yml)
 
-# Lesson 1 - Getting Started
+# Lesson 1 - Getting Started :)
 
 The goal of this lesson is familiarize you with how to setup and run GridLAB-D projects on GitHub. The specific learning objectives for this lesson are the following.
 
