@@ -12,7 +12,7 @@ The goal of this lesson is familiarize you with how to setup and run GridLAB-D p
 
 4. How to save artifacts from a simulation so they can be downloaded later.
 
-## Running GridLAB-D using GitHub Actions
+## Running GridLAB-D using GitHub Action
 
 You will learn how to use a GridLAB-D subcommand to download a reference model, use the GridLAB-D powerflow solver to compute the voltage solution for the IEEE-123 model, and use the GridLAB-D output converters to generate a voltage profile PNG image that can be downloaded later for viewing.
 
