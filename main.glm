@@ -1,5 +1,9 @@
-#ifmissing "13.glm"
-#model get IEEE/13
+#ifmissing "37.glm"
+#model get IEEE/37
 #endif
-#include "13.glm"
+#include "37.glm"
 #output "IEEE-13-voltage-profile.png" -t profile -l 10
+
+object voltdump{
+  file 37.glm
+};
