@@ -1,5 +1,7 @@
-import geopy;
+from geopy.geocoders import Nominatim
 import pandas as pd;
+
+geolocator = Nominatim(user_agent='1234')
 
 def get_zipcode(df, geolocator, lat_field, lon_field):
     location = geolocator.reverse((df[lat_field], df[lon_field]))
