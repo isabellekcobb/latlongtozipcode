@@ -1,5 +1,5 @@
-import geopy
-import pandas as pd
+import geopy;
+import pandas as pd;
 
 def get_zipcode(df, geolocator, lat_field, lon_field):
     location = geolocator.reverse((df[lat_field], df[lon_field]))
