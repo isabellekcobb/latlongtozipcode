@@ -1,6 +1,50 @@
-#ifmissing "13.glm"
-#model get IEEE/13
-#endif
-#include "13.glm"
-#output "IEEE-13-voltage-profile.png" -t profile -l 10
+from arcgis.geocoding import reverse_geocode
+from arcgis.geometry import Geometry
+from arcgis.gis import GIS
+import csv
 
+gis = GIS("http://www.arcgis.com", "***", "***")
+
+coords = [
+(29.39291, -98.50925),
+(29.39923, -98.51256),
+(29.40147, -98.51123),
+(29.38752, -98.52372),
+(29.39291, -98.50925),
+(29.39537, -98.50402),
+(29.39343, -98.49707),
+(29.39291, -98.50925),
+(29.39556, -98.53148)
+]
+
+result = []
+
+for lat, lon in coords:
+    pt = Geometry({
+        "x": float(lon),
+        "y": float(lat),
+        "spatialReference": {
+            "wkid": 4326
+        }
+    })
+    try:
+        result.append({'lat': lat, 'lon': lon, 'geocoded': reverse_geocode(pt)})
+    except:
+        pass
+
+result_zip = []
+
+for item in result:
+    result_item = {
+        'lat': item['lat'],
+        'lon': item['lon'],
+        'zip': item['geocoded']['address']['Postal']
+    }
+    result_zip.append(result_item)
+
+keys = result_zip[0].keys()
+
+with open('output.csv', 'w', encoding='utf8', newline='') as output_file:
+    dict_writer = csv.DictWriter(output_file, keys, delimiter=';', quoting=csv.QUOTE_NONE, lineterminator='\r')
+    dict_writer.writeheader()
+    dict_writer.writerows(result_zip)
