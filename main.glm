@@ -1,2 +1,2 @@
-//script on_init "python zipcode.py"
+
 script on_term "$GLD_BIN/python3 ../zipcode.py"
