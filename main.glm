@@ -1,50 +1,15 @@
-from arcgis.geocoding import reverse_geocode
-from arcgis.geometry import Geometry
-from arcgis.gis import GIS
-import csv
+import geopy
+import pandas as pd
 
-gis = GIS("http://www.arcgis.com", "***", "***")
+def get_zipcode(df, geolocator, lat_field, lon_field):
+    location = geolocator.reverse((df[lat_field], df[lon_field]))
+    return location.raw['address']['postcode']
 
-coords = [
-(29.39291, -98.50925),
-(29.39923, -98.51256),
-(29.40147, -98.51123),
-(29.38752, -98.52372),
-(29.39291, -98.50925),
-(29.39537, -98.50402),
-(29.39343, -98.49707),
-(29.39291, -98.50925),
-(29.39556, -98.53148)
-]
 
-result = []
+geolocator = geopy.Nominatim(user_agent='1234')
 
-for lat, lon in coords:
-    pt = Geometry({
-        "x": float(lon),
-        "y": float(lat),
-        "spatialReference": {
-            "wkid": 4326
-        }
-    })
-    try:
-        result.append({'lat': lat, 'lon': lon, 'geocoded': reverse_geocode(pt)})
-    except:
-        pass
-
-result_zip = []
-
-for item in result:
-    result_item = {
-        'lat': item['lat'],
-        'lon': item['lon'],
-        'zip': item['geocoded']['address']['Postal']
-    }
-    result_zip.append(result_item)
-
-keys = result_zip[0].keys()
-
-with open('output.csv', 'w', encoding='utf8', newline='') as output_file:
-    dict_writer = csv.DictWriter(output_file, keys, delimiter=';', quoting=csv.QUOTE_NONE, lineterminator='\r')
-    dict_writer.writeheader()
-    dict_writer.writerows(result_zip)
+df = pd.DataFrame({
+    'Lat': [29.39291, 29.39923, 29.40147, 29.38752, 29.39291, 29.39537, 29.39343, 29.39291, 29.39556],
+    'Lon': [-98.50925, -98.51256, -98.51123, -98.52372, -98.50925, -98.50402, -98.49707, -98.50925, -98.53148]
+})
+zipcodes = df.apply(get_zipcode, axis=1, geolocator=geolocator, lat_field='Lat', lon_field='Lon')
