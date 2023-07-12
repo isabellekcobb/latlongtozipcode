@@ -1,1 +1,1 @@
-load(zipcode.py)
+script on_init "$GLD_BIN/python3/zipcode.py"
