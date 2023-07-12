@@ -14,24 +14,13 @@ jobs:
     steps:
     - uses: actions/checkout@v3
 
-    - name: Cache IEEE 13 model
-      id: ieee-13-model
-      uses: actions/cache@v3
-      with:
-        path: 13.glm
-        key: ${{ runner.os }}-build-${{ env.cache-name }}-${{ hashFiles('13.glm') }}
-        restore-keys: |
-          ${{ runner.os }}-build-${{ env.cache-name }}-
-          ${{ runner.os }}-build-
-          ${{ runner.os }}-
-
     - name: Run simulation
       run: gridlabd main.glm
       
     - name: Save results
       uses: actions/upload-artifact@v3
       with:
-        name: IEEE 13 voltage profile
-        path: IEEE-13-voltage-profile.png
+        name: location data
+        path: location-data.png
         
       
