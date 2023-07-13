@@ -1,1 +1,1 @@
-% gridlabd geodata -d -D distance location 37.4150,-122.2056 37.3880,-122.2884
+#geodata -d -D distance location 37.4150,-122.2056 37.3880,-122.2884
